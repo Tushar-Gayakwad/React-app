@@ -1,9 +1,46 @@
+# name: CI/CD Pipeline
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     services:
+#       docker:
+#         image: docker:20.10.7
+#         options: --privileged # Required for Docker-in-Docker
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Log in to GHCR
+#         env:
+#           CR_PAT: ${{ secrets.GHCR_TOKEN }} # Use GitHub token for authentication
+#         run: echo $CR_PAT | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+#       - name: Build Docker image
+#         run: docker build -t ghcr.io/tushar-gayakwad/react-app:latest .
+
+#       - name: push docker image 
+#         run: docker push ghcr.io/tushar-gayakwad/react-app:latest 
+
+#       - name: pull docker images 
+#         run: docker pull ghcr.io/tushar-gayakwad/react-app:latest
+
+#       - name: list docker images 
+#         run: docker images
+
+#       - name: run docker images 
+#         run: docker run -d ghcr.io/tushar-gayakwad/react-app:latest
+
 name: CI/CD Pipeline
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch: # This enables manual triggering of the workflow
 
 jobs:
   build:
@@ -25,14 +62,14 @@ jobs:
       - name: Build Docker image
         run: docker build -t ghcr.io/tushar-gayakwad/react-app:latest .
 
-      - name: push docker image 
+      - name: Push Docker image 
         run: docker push ghcr.io/tushar-gayakwad/react-app:latest 
 
-      - name: pull docker images 
+      - name: Pull Docker images 
         run: docker pull ghcr.io/tushar-gayakwad/react-app:latest
 
-      - name: list docker images 
+      - name: List Docker images 
         run: docker images
 
-      - name: run docker images 
+      - name: Run Docker images 
         run: docker run -d ghcr.io/tushar-gayakwad/react-app:latest

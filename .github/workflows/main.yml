@@ -26,10 +26,13 @@ jobs:
         run: docker build -t ghcr.io/tushar-gayakwad/react-app:latest .
 
       - name: push docker image 
-        run: docker push ghcr.io/tushar-gayakwad/react-app:latest && docker images
+        run: docker push ghcr.io/tushar-gayakwad/react-app:latest 
 
       - name: pull docker images 
         run: docker pull ghcr.io/tushar-gayakwad/react-app:latest
+
+      - name: list docker images 
+        run: docker images
 
       - name: run docker images 
         run: docker run -d -p ghcr.io/tushar-gayakwad/react-app:latest

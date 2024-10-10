@@ -1,0 +1,28 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:20.10.7
+        options: --privileged # Required for Docker-in-Docker
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to GHCR
+        env:
+          CR_PAT: ${{ secrets.GHCR_TOKEN }} # Use GitHub token for authentication
+        run: echo $CR_PAT | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and push Docker image
+        run: docker build -t ghcr.io/Tushar-Gayakwad/React-app:latest .
+        run: docker push ghcr.io/Tushar Gayakwad/React-app:latest
+

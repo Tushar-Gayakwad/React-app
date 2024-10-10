@@ -35,4 +35,4 @@ jobs:
         run: docker images
 
       - name: run docker images 
-        run: docker run -d -p ghcr.io/tushar-gayakwad/react-app:latest
+        run: docker run -d ghcr.io/tushar-gayakwad/react-app:latest
